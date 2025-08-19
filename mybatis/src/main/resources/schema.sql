@@ -8,3 +8,12 @@ CREATE TABLE USERS (
                        age INTEGER,
                        email VARCHAR(255)
 );
+
+DROP TABLE IF EXISTS PRODUCTS;
+
+CREATE TABLE PRODUCTS (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL,
+                        price INT NOT NULL,
+                        stock INT DEFAULT 0
+)

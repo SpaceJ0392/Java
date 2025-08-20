@@ -22,10 +22,19 @@ DROP TABLE IF EXISTS ORDERS;
 
 CREATE TABLE ORDERS (
                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                    user_id BIGINT NOT NULL ,
-                    product_id BIGINT NOT NULL,
-                    quantity INT NOT NULL,
+                    user_id BIGINT NOT NULL,
                     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-                    FOREIGN KEY (user_id) REFERENCES USERS(id),
-                    FOREIGN KEY (product_id) references PRODUCTS(id)
+                    status VARCHAR(50) DEFAULT 'ORDERED',
+                    FOREIGN KEY (user_id) REFERENCES USERS(id)
+);
+
+DROP TABLE IF EXISTS ORDER_ITEMS;
+
+CREATE TABLE ORDER_ITEMS (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        product_id BIGINT NOT NULL,
+                        order_id BIGINT NOT NULL,
+                        quantity INT NOT NULL,
+                        FOREIGN KEY (product_id) references PRODUCTS(id),
+                        FOREIGN KEY (order_id) references ORDERS(id)
 );

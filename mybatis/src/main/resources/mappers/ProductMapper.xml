@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="spring_study.mybatis.mapper.ProductMapper">
-    <insert id="insertProduct" useGeneratedKeys="true" parameterType="spring_study.mybatis.dto.Product" keyProperty="id">
+    <insert id="insertProduct" useGeneratedKeys="true" parameterType="spring_study.mybatis.entity.Product" keyProperty="id">
         INSERT INTO PRODUCTS (name, price, stock) VALUES (#{name}, #{price}, #{stock});
     </insert>
 
-    <select id="selectAll" resultType="spring_study.mybatis.dto.Product">
+    <select id="selectAll" resultType="spring_study.mybatis.entity.Product">
         SELECT * FROM PRODUCTS;
     </select>
 
-    <select id="selectById" resultType="spring_study.mybatis.dto.Product">
+    <select id="selectById" resultType="spring_study.mybatis.entity.Product">
         SELECT * FROM PRODUCTS WHERE id = #{id};
     </select>
 

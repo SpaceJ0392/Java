@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="spring_study.mybatis.mapper.OrderMapper">
-    <insert id="insertOrder" parameterType="spring_study.mybatis.dto.Order">
-        INSERT INTO ORDERS (user_id, product_id, quantity) VALUES (#{userId}, #{productId}, #{quantity});
+    <insert id="insertOrder" parameterType="spring_study.mybatis.entity.Order" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO ORDERS (user_id, status) VALUES (#{userId}, #{status});
     </insert>
 </mapper>

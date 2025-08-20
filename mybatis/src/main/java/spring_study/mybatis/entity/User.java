@@ -1,14 +1,11 @@
-package spring_study.mybatis.dto;
+package spring_study.mybatis.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@ToString()
 public class User {
-
     private Long id;
     private String userName;
     private Integer age;

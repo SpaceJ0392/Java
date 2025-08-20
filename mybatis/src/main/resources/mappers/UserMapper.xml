@@ -5,12 +5,17 @@
 
 <mapper namespace="spring_study.mybatis.mapper.UserMapper">
 
-    <select id="findAllUsers" resultType="spring_study.mybatis.dto.User">
+    <select id="findAllUsers" resultType="spring_study.mybatis.entity.User">
         SELECT id, user_name, age, email
         FROM USERS
     </select>
 
-    <insert id="insertUser" parameterType="spring_study.mybatis.dto.User" keyProperty="id" useGeneratedKeys="true">
+    <select id="findUserById" resultType="spring_study.mybatis.entity.User">
+        SELECT * FROM USERS WHERE id = #{id};
+    </select>
+
+    <insert id="insertUser" parameterType="spring_study.mybatis.entity.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO USERS (user_name, age, email) VALUES (#{userName}, #{age}, #{email})
     </insert>
+
 </mapper>

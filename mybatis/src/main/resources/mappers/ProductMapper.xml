@@ -28,6 +28,12 @@
         WHERE name = #{name};
     </update>
 
+    <update id="updateProductStockById">
+        UPDATE PRODUCTS
+        set stock = stock - #{quantity}
+        WHERE id = #{id} AND stock >= #{quantity};
+    </update>
+
     <delete id="deleteProductByStock">
         DELETE FROM PRODUCTS WHERE stock = #{stock};
     </delete>

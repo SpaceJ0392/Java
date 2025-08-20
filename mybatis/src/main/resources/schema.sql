@@ -16,4 +16,16 @@ CREATE TABLE PRODUCTS (
                         name VARCHAR(255) NOT NULL,
                         price INT NOT NULL,
                         stock INT DEFAULT 0
-)
+);
+
+DROP TABLE IF EXISTS ORDERS;
+
+CREATE TABLE ORDERS (
+                    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                    user_id BIGINT NOT NULL ,
+                    product_id BIGINT NOT NULL,
+                    quantity INT NOT NULL,
+                    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+                    FOREIGN KEY (user_id) REFERENCES USERS(id),
+                    FOREIGN KEY (product_id) references PRODUCTS(id)
+);

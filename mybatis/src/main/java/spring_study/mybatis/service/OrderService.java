@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import spring_study.mybatis.dto.OrderDetailDto;
 import spring_study.mybatis.dto.OrderRequest;
 import spring_study.mybatis.dto.OrderSummaryDto;
+import spring_study.mybatis.dto.PageDto;
 import spring_study.mybatis.entity.Order;
 import spring_study.mybatis.entity.OrderItems;
 import spring_study.mybatis.entity.OrderStatus;
@@ -69,4 +70,20 @@ public class OrderService {
     public List<OrderDetailDto>  getOrderDetailList(Long orderId) {
         return orderMapper.findDetailOrderByOrderId(orderId);
     }
+
+    public List<OrderSummaryDto> getOrderSummaryListPaging(Long userId, PageDto pageDto) {
+        List<OrderSummaryDto> orders = orderMapper.findOrdersByUserIdOnPaging(userId, pageDto);
+
+        return orders.stream()
+                .map(order -> {
+                    String orderName = order.getOrderName();
+                    if (order.getTotItemCnt() >= 1) orderName += " 외 " + (order.getTotItemCnt() - 1) + " 건";
+                    return new OrderSummaryDto(order.getOrderId(), orderName, order.getOrderStatus(), order.getOrderDate(), order.getTotItemCnt());
+                }).toList();
+    }
+
+    public List<OrderDetailDto>  getOrderDetailListPaging(Long orderId, PageDto pageDto) {
+        return orderMapper.findDetailOrderByOrderIdPaging(orderId, pageDto);
+    }
+
 }

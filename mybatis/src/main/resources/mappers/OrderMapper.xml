@@ -59,8 +59,46 @@
             p.price AS product_price
         FROM ORDERS o
         JOIN USERS u ON o.user_id = u.id
-        JOIN ORDER_TIMES oi ON o.id = oi.order_id
+        JOIN ORDER_ITEMS oi ON o.id = oi.order_id
         JOIN PRODUCTS p ON oi.product_id = p.id
         WHERE o.id = #{orderId};
+    </select>
+
+    <select id="findOrdersByUserIdOnPaging" resultType="spring_study.mybatis.dto.OrderSummaryDto">
+        SELECT
+            o.id as orderId,
+            (SELECT p.name FROM ORDER_ITEMS oi
+                                    JOIN PRODUCTS p ON oi.product_id = p.id
+             WHERE oi.order_id = o.id
+             ORDER BY oi.quantity
+                    LIMIT 1) as orderName,
+            o.status as orderStatus,
+            o.order_date as orderDate,
+            (SELECT count(*) FROM ORDER_ITEMS oi WHERE o.id = oi.order_id) as totItemCnt
+        FROM ORDERS o
+        WHERE o.user_id = #{userId}
+        ORDER BY o.order_date DESC
+        LIMIT #{paging.size} OFFSET #{paging.offset}
+    </select>
+
+    <select id="findDetailOrderByOrderIdPaging" resultMap="orderDetailsResultMap">
+        SELECT
+            o.id AS order_id,
+            o.status AS order_status,
+            o.order_date AS order_date,
+            o.user_id AS user_id,
+            u.user_name AS user_name,
+            u.age AS user_age,
+            u.email AS user_email,
+            p.id AS product_id,
+            p.name AS product_name,
+            oi.quantity AS order_item_quantity,
+            p.price AS product_price
+        FROM ORDERS o
+                 JOIN USERS u ON o.user_id = u.id
+                 JOIN ORDER_ITEMS oi ON o.id = oi.order_id
+                 JOIN PRODUCTS p ON oi.product_id = p.id
+        WHERE o.id = #{orderId}
+        LIMIT #{paging.size} OFFSET #{paging.offset};
     </select>
 </mapper>

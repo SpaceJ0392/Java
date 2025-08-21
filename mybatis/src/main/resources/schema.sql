@@ -30,7 +30,7 @@ CREATE TABLE ORDERS (
 
 DROP TABLE IF EXISTS ORDER_TIMES;
 
-CREATE TABLE ORDER_TIMES (
+CREATE TABLE ORDER_ITEMS (
                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
                         product_id BIGINT NOT NULL,
                         order_id BIGINT NOT NULL,

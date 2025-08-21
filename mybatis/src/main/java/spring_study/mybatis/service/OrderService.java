@@ -3,7 +3,9 @@ package spring_study.mybatis.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import spring_study.mybatis.dto.OrderDetailDto;
 import spring_study.mybatis.dto.OrderRequest;
+import spring_study.mybatis.dto.OrderSummaryDto;
 import spring_study.mybatis.entity.Order;
 import spring_study.mybatis.entity.OrderItems;
 import spring_study.mybatis.entity.OrderStatus;
@@ -12,6 +14,7 @@ import spring_study.mybatis.mapper.OrderMapper;
 import spring_study.mybatis.mapper.ProductMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +53,20 @@ public class OrderService {
         }
 
         return results;
+    }
+
+    public List<OrderSummaryDto> getOrderSummaryList(Long userId) {
+        List<OrderSummaryDto> orders = orderMapper.findOrdersByUserId(userId);
+
+        return orders.stream()
+                .map(order -> {
+                     String orderName = order.getOrderName();
+                     if (order.getTotItemCnt() >= 1) orderName += " 외 " + (order.getTotItemCnt() - 1) + " 건";
+                     return new OrderSummaryDto(order.getOrderId(), orderName, order.getOrderStatus(), order.getOrderDate(), order.getTotItemCnt());
+        }).toList();
+    }
+
+    public List<OrderDetailDto>  getOrderDetailList(Long orderId) {
+        return orderMapper.findDetailOrderByOrderId(orderId);
     }
 }

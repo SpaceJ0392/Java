@@ -5,6 +5,6 @@
 
 <mapper namespace="spring_study.mybatis.mapper.OrderItemsMapper">
     <insert id="insertOrderItems" parameterType="spring_study.mybatis.entity.OrderItems" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ORDER_ITEMS (product_id, order_id, quantity) values (#{productId}, #{orderId}, #{quantity});
+        INSERT INTO ORDER_TIMES (product_id, order_id, quantity) values (#{productId}, #{orderId}, #{quantity});
     </insert>
 </mapper>

@@ -28,9 +28,9 @@ CREATE TABLE ORDERS (
                     FOREIGN KEY (user_id) REFERENCES USERS(id)
 );
 
-DROP TABLE IF EXISTS ORDER_ITEMS;
+DROP TABLE IF EXISTS ORDER_TIMES;
 
-CREATE TABLE ORDER_ITEMS (
+CREATE TABLE ORDER_TIMES (
                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
                         product_id BIGINT NOT NULL,
                         order_id BIGINT NOT NULL,
